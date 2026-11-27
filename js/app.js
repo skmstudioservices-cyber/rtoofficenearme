@@ -1,3 +1,7 @@
+/* MAP ENGINE — do not rewrite wholesale.
+   Guard: read the DO-NOT-TOUCH REGISTER in index.html first.
+   Owns: #map #city #go #geo #radius #status #out, Overpass search,
+   geolocation with a typed-city fallback. DOM ids are a contract. */
 const QS = id => document.getElementById(id);
 let map, layer, here = null;
 function initMap(lat, lng, z) {

@@ -1,7 +1,18 @@
-/* analytics.js — SKM first-party, anonymous analytics beacon (v2, 15 Oct 2026).
-   No cookies, no PII, no precise location. Sends pageview + dwell + max scroll
-   + the search keyword the user typed, tagged with hostname so events attribute
-   to the right site. Plain-string beacon = CORS-simple, works cross-origin. */
+/* ============================================================
+   OWNER-ONLY ANALYTICS BEACON — PRIVATE. DO NOT EDIT. (v3, 27 Nov 2026)
+   ------------------------------------------------------------
+   READ THIS BEFORE YOU CHANGE ANYTHING:
+   - This file is the ONLY analytics on this site. It is not a public
+     feature: there is no public stats page, no cookies, no PII, and no
+     readable endpoint in the UI. Do not expose it, do not add a public
+     dashboard, do not print payloads to the console.
+   - Data goes to the owner's own collector and is read by the owner only.
+   - BEFORE editing anything in this repo, read the DO-NOT-TOUCH REGISTER
+     at the top of index.html and check the logs (GSC clicks, beacon
+     events) first. A wrong edit here has already cost clicks before.
+   - Do not change ENDPOINT, the payload keys, or the script path.
+     Other crons and the network audit depend on all three.
+   ============================================================ */
 (function () {
   var ENDPOINT = 'https://digipincode.india-in.workers.dev/api/collect';
   try {
@@ -25,7 +36,6 @@
         navigator.sendBeacon(ENDPOINT, payload);
       } catch (e) {}
     }
-    // keyword fuel: capture the city/search term the user actually searched
     function kwBeacon(v) {
       try {
         if (!v) return;
@@ -48,3 +58,8 @@
     });
   } catch (e) {}
 })();
+/* ============================================================
+   END OF OWNER-ONLY ANALYTICS BEACON.
+   Nothing may be appended below this line. If a cron needs new
+   tracking, it must ask the owner and be logged in Notion first.
+   ============================================================ */
